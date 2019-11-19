@@ -1,24 +1,30 @@
 Rails.application.routes.draw do
+  # get 'sessions/google_oauth'
+  get 'sessions/destroy'
+  get 'login', to: redirect('/auth/google_oauth2'), as: 'login'
+  get 'logout', to: 'sessions#destroy', as: 'logout'
+  get 'auth/:provider/callback', to: 'sessions#create'
+  get 'auth/failure', to: redirect('/')
   
-  get '/user/notifications' => 'users#notifications'
-  get '/user/support' => 'users#support'
-  get '/user/profile' => 'users#profile'
-  get '/user/plan' => 'users#plan'
-  get '/user/billing' => 'users#billing'
-  get '/user' => 'users#profile'
-  get '/user/notifications' => 'user#notifications'
-  get '/user/support' => 'user#support'
-  get '/user/profile' => 'user#profile'
-  get '/user/plan' => 'user#plan'
-  get '/user/billing' => 'user#billing'
-  get '/user' => 'user#profile'
-  get '/user/notifications' => 'account#notifications'
-  get '/user/support' => 'account#support'
-  get '/user/profile' => 'account#profile'
-  get '/user/plan' => 'account#plan'
-  get '/user/billing' => 'account#billing'
-  get '/user' => 'account#profile'
-  resources :users
-  root 'users#profile'
+  get 'home/landing'
+  get 'home/dashboard'
+  
+  get 'auth/:provider/callback', to: 'sessions#google_oauth', as: 'google_oauth'
+  get 'auth/failure', to: redirect('/')
+  
+  resources :users do
+    collection do
+      get 'notifications'
+      get 'support'
+    end
+    
+    member do
+      get 'billing'
+      get 'profile'
+      get 'dashboard'
+    end
+  end
+
+  root 'home#landing'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

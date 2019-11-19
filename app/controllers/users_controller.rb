@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   prepend_view_path(File.join(Rails.root, 'app/views/users/'))
   layout 'application'
-  layout "scaffold"
+  # layout "scaffold"
+  layout 'sidenav'
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
@@ -47,6 +48,11 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     redirect_to users_url, notice: 'User was successfully destroyed.'
+  end
+  
+  def dashboard
+    @events = Event.active
+  
   end
 
   private

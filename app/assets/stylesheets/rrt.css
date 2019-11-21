@@ -1,7 +1,7 @@
 /*
  * Pick one style by placing the `=` sign in front the the style you want. ** Just one, now. **
  *
- *= require rrt/orion/blue
+ * require rrt/orion/blue
  *  require rrt/orion/purple
  *  require rrt/orion/green
  *  require rrt/orion/orange
@@ -14,7 +14,7 @@
  *
  *  require rrt/gemini/blue
  *  require rrt/gemini/amber
- *  require rrt/gemini/granite
+ *=  require rrt/gemini/granite
  *  require rrt/gemini/ocean
  *
  *  require rrt/lyra/azure

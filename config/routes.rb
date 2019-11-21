@@ -24,7 +24,7 @@ Rails.application.routes.draw do
       get 'dashboard'
     end
   end
-
+  resources :events
   root 'home#landing'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

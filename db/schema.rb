@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_20_033807) do
+ActiveRecord::Schema.define(version: 2019_11_21_031509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,12 +32,20 @@ ActiveRecord::Schema.define(version: 2019_11_20_033807) do
     t.index ["user_event_id"], name: "index_gifts_on_user_event_id"
   end
 
+  create_table "permissions", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "user_events", force: :cascade do |t|
     t.bigint "event_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "permission_id"
     t.index ["event_id"], name: "index_user_events_on_event_id"
+    t.index ["permission_id"], name: "index_user_events_on_permission_id"
     t.index ["user_id"], name: "index_user_events_on_user_id"
   end
 

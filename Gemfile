@@ -44,6 +44,9 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'omniauth-google-oauth2'
 
+gem 'cancancan'
+
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'

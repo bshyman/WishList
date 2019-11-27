@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  
   def google_oauth
     # Get access tokens from the google server
     access_token = request.env['omniauth.auth']
@@ -20,5 +21,8 @@ class SessionsController < ApplicationController
   
   def destroy
     session[:user_id] = nil
+    @current_ability = nil
+    @current_user = nil
+    redirect_to home_landing_path, notice: 'Signed out'
   end
 end

@@ -10,9 +10,7 @@
           <%= theme_icon_tag "menu" %>
         </a>
       </li>
-      <li class="nav-item">
-        <%= link_to 'Home', root_path, class:'nav-link' %>
-      </li>
+      <%= yield :page_navigation %>
     </ul>
     <%= yield :navbar %>
     <ul class="nav navbar-nav">
@@ -129,3 +127,8 @@
     </ul>
   </div>
 </nav>
+<style>
+  * {
+    /*color: ghostwhite;*/
+  }
+</style>

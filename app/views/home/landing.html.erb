@@ -1,0 +1,85 @@
+<%= content_for :js_libs, "modernizr countdown" %>
+
+<main class="landing-2" style="background-image: url('<%= asset_path('rrt/stock/landscape_13.jpg') %>')">
+  <div class="container">
+    <button class="btn btn-primary pull-right mt-5 join-group" data-toggle="modal" data-target="#join">Join a Group
+    </button>
+    <div class="clearfix"></div>
+    <div class="row">
+      <div class="col-12">
+        <div class="d-flex align-items-center justify-content-center mt-5 flex-column">
+          <img src="<%= asset_path('rrt/pyrrmid_64.png') %>" width="64" height="64">
+          <h6 class="text-white mb-5">PYRMID</h6>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-md-7 ml-md-auto mr-md-auto text-center text-white text-shadow-light mt-3">
+        <h1 class="leading-normal">Wishee</h1>
+        <p class="lead font-weight-bold mt-2">Wish lists got smart.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-md-8 mr-md-auto ml-md-auto text-center text-white pt-5">
+        <p class="text-shadow-light text-uppercase">Xmas countdown</p>
+        <div class="row d-flex align-items-center justify-content-center">
+          <div class="countdown" data-countdownto="12/25/2019"></div>
+        </div>
+        <div class="card d-none">
+          <div class="card-body">
+            <form class="form-inline d-flex justify-content-center justify-content-xl-between flex-column flex-lg-row">
+              <label class="sr-only" for="inlineFormInputName2">Email</label>
+              <div class="flex-grow-2 input-group input-group-sm mb-2 mb-lg-0 mr-3">
+                <span class="input-group-prepend" id="basic-addon1"><div class="input-group-text"><%= theme_icon_tag "email" %></div></span>
+                <input type="text" class="form-control" id="inlineFormInputName2" placeholder="Your Email">
+              </div>
+              
+              <button type="submit" class="btn btn-primary">Get Notified</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Modal -->
+<div class="modal fade" id="join" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <%#= form_with url: sessions_google_oauth_path, method: :get do |f| %>
+          <div class="form-group">
+            
+            <%= label_tag :event_code, 'Code', class: 'control-label' %>
+            <%= text_field_tag :event_code, nil, class: 'form-control' %>
+          </div>
+          <%= button_to login_path, method: :get, class: 'btn btn-block' do %>
+            Log in with
+            <i class="fa fa-google">oogle</i>
+          <% end %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('#exampleModal').on('show.bs.modal', event => {
+    var button = $(event.relatedTarget);
+    var modal = $(this);
+    // Use above variables to manipulate the DOM
+    
+  });
+</script>

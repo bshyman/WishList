@@ -2,7 +2,7 @@
 
 <div class="profile-header jumbotron  d-flex align-items-center justify-content-center flex-column pb-0">
   <%= render partial: '_user_account/avatar_upload' %>
-  <h2 class="m-0 mb-2">Phill McMurray</h2>
+  <h2 class="m-0 mb-2"><%= current_user.first_name + ' ' + current_user.last_name  %></h2>
   <div class="badge badge-light">
     PRO ACCOUNT
   </div>

@@ -12,7 +12,19 @@ class SessionsController < ApplicationController
     user.google_refresh_token = refresh_token if refresh_token.present?
     user.save
     session[:user_id] = user.id
-    redirect_to dashboard_user_path(user), notice: 'Logged in!'
+    if user.last_event_id.present?
+      session[:event_id] = user.last_event_id
+      redirect_to dashboard_user_path(user), notice: 'Logged in!'
+    else
+      event_ids = UserEvent.where(user_id: user.id).pluck(:event_id).uniq
+      if event_ids.size == 1
+        event_id = event_ids.first
+        session[:event_id] = event_id
+        user.update(last_event_id: event_id)
+        return redirect_to user_event_path(event_id),notice: 'logged in.'
+      end
+      redirect_to select_event_users_path
+    end
   end
   
   def create

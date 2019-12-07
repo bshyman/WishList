@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   helper_method :user_signed_in?
   helper_method :correct_user?
+  before_action :current_event
   
   
   rescue_from CanCan::AccessDenied do |exception|
@@ -23,6 +24,10 @@ class ApplicationController < ActionController::Base
   end
   
   private
+  
+  def current_event
+    @event ||= Event.find_by(id: session[:event_id])
+  end
   
   def current_user
     begin

@@ -1,0 +1,49 @@
+<div class="modal-header">
+  <h5 class="modal-title"><%= gift.name %></h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div>
+    <label for="price">
+      Price:
+    </label>
+    <%= gift.price %>
+  </div>
+  <div>
+    <label for="url">
+      URL:
+    </label>
+    <%= link_to gift.url, gift.url, target: '_blank' %>
+  </div>
+  <div class="form-group">
+    <div>
+      <label for="size">Size</label>
+      <%= gift.size %><br>
+      <label for="color">Color</label>
+      <%= gift.color %>
+    </div>
+  </div>
+  <%= %>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+  <button type="button" class="btn btn-primary">Mark as Purchased</button>
+</div>
+
+<style>
+  label {
+    color: #aaa;
+  }
+</style>
+
+<script type="text/javascript" charset="utf-8">
+  $('.gift-row').on('click', function () {
+    let id = $(this).data('id');
+    $.get('/gifts/' + id).done(function (response) {
+      $('#gift_modal').modal('show')
+      $('#gift_modal .modal-content').html(response)
+    })
+  })
+</script>

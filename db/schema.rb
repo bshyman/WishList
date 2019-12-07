@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_21_031509) do
+ActiveRecord::Schema.define(version: 2019_12_02_033636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,7 +26,14 @@ ActiveRecord::Schema.define(version: 2019_11_21_031509) do
 
   create_table "gifts", force: :cascade do |t|
     t.bigint "user_event_id"
-    t.integer "recipient_id"
+    t.integer "giftee_event_id"
+    t.string "name"
+    t.decimal "price", precision: 10, scale: 2
+    t.string "url"
+    t.integer "priority", default: 0
+    t.string "color"
+    t.string "size"
+    t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_event_id"], name: "index_gifts_on_user_event_id"
@@ -62,6 +69,7 @@ ActiveRecord::Schema.define(version: 2019_11_21_031509) do
     t.date "birthdate"
     t.string "google_token"
     t.string "google_refresh_token"
+    t.integer "last_event_id"
   end
 
 end

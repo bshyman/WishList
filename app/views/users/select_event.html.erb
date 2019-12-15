@@ -1,0 +1,46 @@
+<!-- Modal -->
+<div class="modal fade" id="select_event" tabindex="-1" role="dialog" aria-labelledby="select_event_title" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title">Select Event</h5>
+        <div class="btn-group">
+          <%= button_to 'Join by code', join_by_code_path, class: 'btn' %>
+          <%= button_to 'Create Event', new_event_path, class: 'btn create-event-btn' %>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <table class="table table-hover">
+            <tbody>
+            <% @events.each do |event| %>
+              <tr class="event-row" data-url="<%= set_selected_event_path(id: event.id) %>">
+                <td style="text-align: center;">
+                  <%= link_to event.name, '#' %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('#select_event').modal({backdrop: 'static'});
+  
+  $('.event-row').on('click', function () {
+    window.location = $(this).data('url');
+  })
+  
+  
+  $('.create-event-btn').on('click', function(e){
+    e.preventDefault();
+    $(this).addClass('animated hinge');
+    // notifyNotice('cuchoooo')
+    '<%= flash.now[:notice] = 'This would be crazy' %>'
+  })
+  toastr.info('toasty!')
+</script>

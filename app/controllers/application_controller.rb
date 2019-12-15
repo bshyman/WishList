@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   helper_method :correct_user?
   before_action :current_event
   
-  
+  # before_action :authenticate_user!
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
       format.json {head :forbidden, content_type: 'text/html'}
@@ -19,6 +19,7 @@ class ApplicationController < ActionController::Base
   end
   
   def current_ability
+    authenticate_user!
     user_event = params[:event_id] ? UserEvent.find_by(event_id: params[:event_id], user_id: current_user.id) : UserEvent.new(user_id: current_user.id)
     @current_ability ||= Ability.new(user_event)
   end
@@ -43,14 +44,12 @@ class ApplicationController < ActionController::Base
   
   def correct_user?
     @user = User.find(params[:id])
-    unless current_user == @user
-      redirect_to root_url, :alert=>"Access denied."
-    end
+    redirect_to root_url, alert: "Access denied." unless current_user == @user
   end
   
   def authenticate_user!
-    if !current_user
-      redirect_to root_url, :alert=>'You need to sign in for access to this page.'
+    unless current_user
+      redirect_to root_path, alert: 'You need to sign in for access to this page.'
     end
   end
 

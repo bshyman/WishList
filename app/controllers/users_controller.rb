@@ -1,19 +1,19 @@
+# frozen_string_literal: true
 class UsersController < ApplicationController
+  load_and_authorize_resource except: %i[new create]
   prepend_view_path(File.join(Rails.root, 'app/views/users/'))
   layout 'application'
   # layout "scaffold"
   layout 'sidenav'
 
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: %i[show edit update destroy]
+  before_action :set_user_events
 
   # GET /users
-  def index
-    @users = User.all
-  end
+  def index; end
 
   # GET /users/1
-  def show
-  end
+  def show; end
 
   # GET /users/new
   def new
@@ -21,8 +21,7 @@ class UsersController < ApplicationController
   end
 
   # GET /users/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /users
   def create
@@ -49,38 +48,38 @@ class UsersController < ApplicationController
     @user.destroy
     redirect_to users_url, notice: 'User was successfully destroyed.'
   end
-  
-  def dashboard
-    @events = Event.active
-  
+
+  def dashboard∑
   end
+  
+   def select_event
+     @events = current_user.events
+   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def user_params
-      params.fetch(:user, {})
-    end
-  def index
+  def user_params
+    params.require(:user).permit
   end
 
-  def billing
+  def set_user_events
+    @user_events = current_user.user_events
   end
 
-  def plan
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
   end
+  
 
-  def profile
-  end
+  def billing; end
 
-  def support
-  end
+  def plan; end
 
-  def notifications
-  end
+  def profile; end
+
+  def support; end
+
+  def notifications; end
 
 end

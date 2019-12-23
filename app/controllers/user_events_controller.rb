@@ -3,7 +3,6 @@ class UserEventsController < ApplicationController
   layout 'sidenav'
   
   def index
-    byebug
   end
   
   def show
@@ -11,9 +10,8 @@ class UserEventsController < ApplicationController
     @users       = @user_event.event.users
   end
   
-  def gifts_for_user
-    byebug
-    @user_event = UserEvent.find(params[:id])
+  def user_gifts
+    #@user_event = UserEvent.find(params[:id])
     @name = @user_event.user.name
     @gifts = @user_event.gifts
     render 'user_events/gifts'

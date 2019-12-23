@@ -9,7 +9,7 @@ class GiftsController < ApplicationController
   def user
     @user_events = UserEvent.where(user_id: current_user.id)
     @gifts = Gift.all
-    render 'gifts/gifts_for_user'
+    render 'gifts'
   end
 
   def show

@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   end
   resources :user_events do
     member do
-      get 'gifts_for_user'
+      get 'user_gifts'
     end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

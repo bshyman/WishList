@@ -26,9 +26,9 @@ ActiveRecord::Schema.define(version: 2019_12_02_033636) do
 
   create_table "gifts", force: :cascade do |t|
     t.bigint "user_event_id"
-    t.integer "giftee_event_id"
+    t.integer "gifter_id"
     t.string "name"
-    t.decimal "price", precision: 10, scale: 2
+    t.decimal "price", precision: 9, scale: 2
     t.string "url"
     t.integer "priority", default: 0
     t.string "color"

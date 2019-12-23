@@ -23,13 +23,13 @@
     <%= render 'layouts/external_js_libs' %>
     <%= yield :external_js_libs %>
     <%= javascript_include_tag "application", 'data-turbolinks-track': 'reload' %>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.3.2/bootbox.min.js" integrity="sha256-s87nschhfp/x1/4+QUtIa99el2ot5IMQLrumROuHZbc=" crossorigin="anonymous"></script>
     <%= yield :javascript %>
     <%= yield :head %>
   </head>
-  <body class='<%= @body_class %> show-sidebar' data-js-libs='bootstrap fitie metis forms sidenav prism clipboard bs-switch <%= yield :js_libs %>'>
+  <body class='<%= @body_class %> show-sidebar' data-js-libs='bootstrap fitie metis forms sidenav prism  bs-switch <%= yield :js_libs %>'>
 
     <%= yield %>
-
+  
   </body>
 <% end %>

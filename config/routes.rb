@@ -28,11 +28,9 @@ Rails.application.routes.draw do
       get 'dashboard'
     end
   end
-  resources :user_events do
-    member do
-      get 'user_gifts'
-    end
-  end
+  
+  get 'events/:id/users' => 'events#users', as: 'event_users'
+  get 'user_events/:id/user_gifts' => 'user_events#user_gifts', as: 'user_gifts'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'home#landing'
 end

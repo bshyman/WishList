@@ -26,12 +26,16 @@ class EventsController < ApplicationController
     end
   end
   
+  def users
+    @users = @event.users
+  end
+  
  def set_selected_event
    session[:event_id] = params[:id]
    if current_event.nil?
      redirect_to select_event_users_path
    else
-     redirect_to user_event_path(current_event), notice: 'Event ' + @event.name
+     redirect_to event_users_path(current_event), notice: 'Event ' + @event.name
    end
   
  end

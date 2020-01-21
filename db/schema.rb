@@ -10,23 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_02_033636) do
+ActiveRecord::Schema.define(version: 2020_01_20_035501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "events", force: :cascade do |t|
+    t.string "name", null: false
+    t.boolean "private_event", default: true
+    t.string "join_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status", default: 0
-    t.string "name"
-    t.boolean "private_event", default: true
-    t.string "join_code"
   end
 
   create_table "gifts", force: :cascade do |t|
-    t.bigint "user_event_id"
-    t.integer "giftee_event_id"
+
+    t.bigint "giftee_id"
+    t.integer "gifter_id"
     t.string "name"
     t.decimal "price", precision: 10, scale: 2
     t.string "url"
@@ -36,7 +37,7 @@ ActiveRecord::Schema.define(version: 2019_12_02_033636) do
     t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_event_id"], name: "index_gifts_on_user_event_id"
+    t.index ["giftee_id"], name: "index_gifts_on_giftee_id"
   end
 
   create_table "permissions", force: :cascade do |t|

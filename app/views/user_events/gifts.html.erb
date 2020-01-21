@@ -1,5 +1,20 @@
 <%= content_for :page_navigation do %>
-  <li><%= link_to 'Home', dashboard_user_path(current_user), class: 'nav-link' %></li>
+
+  <li>
+    <%= link_to 'Home', root_path, class: 'nav-link' %>
+  </li>
+  <span class="nav-link">
+  /
+  </span>
+  <li class="nav-link">
+    <%= link_to @user_event.event.name, user_gifts_path(@event, ) %>
+  </li>
+  <span class="nav-link">
+  /
+  </span>
+  <li class="nav-link">
+    <%= @gifts.take.receiver.first_name   %>
+  </li>
 <% end %>
 
 <h4>Gifts for <%= @gifts.take.receiver.first_name %></h4>

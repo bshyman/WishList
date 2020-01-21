@@ -3,19 +3,15 @@ class GiftsController < ApplicationController
 
   load_and_authorize_resource
   def index
-  
   end
   
   def new
-  
-  
   end
   
   def user
-    @user_events = UserEvent.where(user_id: current_user.id)
-    byebug
-    @gifts = Gift.all
-    render 'gifts/gifts_for_user'
+    @user  = User.find(gift_params[:user_id])
+    @gifts = @event.gifts.where(giftee_id: @user.id)
+    render 'gifts'
   end
   
   def show

@@ -13,4 +13,9 @@ class User < ApplicationRecord
     user.save!
     user
   end
+  
+  def name
+    return 'no name' unless first_name.present? && last_name.present?
+    first_name + ' ' + last_name
+  end
 end

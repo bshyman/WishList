@@ -7,9 +7,12 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   helper_method :user_signed_in?
   helper_method :correct_user?
-  before_action :current_event
-  
-  
+  helper_method :current_event
+  helper_method :current_user_event
+  #before_action :current_event
+  #before_action :current_event
+
+  # before_action :authenticate_user!
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
       format.json {head :forbidden, content_type: 'text/html'}
@@ -17,14 +20,15 @@ class ApplicationController < ActionController::Base
       format.js {head :forbidden, content_type: 'text/html'}
     end
   end
-  
+
   def current_ability
-    user_event = params[:event_id] ? UserEvent.find_by(event_id: params[:event_id], user_id: current_user.id) : UserEvent.new(user_id: current_user.id)
+    authenticate_user!
+    user_event       = params[:event_id] ? UserEvent.find_by(event_id: params[:event_id], user_id: current_user.id) : UserEvent.new(user_id: current_user.id)
     @current_ability ||= Ability.new(user_event)
   end
-  
+
   private
-  
+
   def current_event
     @event ||= Event.find_by(id: session[:event_id])
   end
@@ -32,10 +36,17 @@ class ApplicationController < ActionController::Base
   def current_user
     begin
       @current_user ||= User.find(session[:user_id]) if session[:user_id]
-    rescue Exception=>e
-      redirect_to login_path
+    rescue StandardError => e
+      redirect_to home_landing_path
     end
   end
+
+
+
+    def current_user_event
+      @current_user_event ||= UserEvent.find_by(event_id: current_event.id, user_id: current_user.id)
+    end
+
   
   def user_signed_in?
     current_user.present?
@@ -43,15 +54,13 @@ class ApplicationController < ActionController::Base
   
   def correct_user?
     @user = User.find(params[:id])
-    unless current_user == @user
-      redirect_to root_url, :alert=>"Access denied."
-    end
+    redirect_to root_url, alert: "Access denied." unless current_user == @user
   end
-  
-  def authenticate_user!
-    if !current_user
-      redirect_to root_url, :alert=>'You need to sign in for access to this page.'
-    end
+
+def authenticate_user!
+  unless current_user
+    redirect_to root_path, alert: 'You need to sign in for access to this page.'
   end
+end
 
 end

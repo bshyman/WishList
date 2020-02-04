@@ -1,0 +1,24 @@
+<%= content_for :description do %>
+  My Wish List
+<% end %>
+<%= content_for :actions do %>
+<% end %>
+<%= content_for :page_navigation do %>
+<%= link_to_if current_event, current_event.name, event_users_path(current_event), class: 'white' %>
+<% end %>
+
+<div class="row">
+  <% @wishes.each do |wish| %>
+    <div class="col-sm-4">
+      <div class="card">
+        <img class="card-img-top" src="" alt="">
+        <div class="card-body">
+          <h4 class="card-title"><%= wish.name %></h4>
+          <p class="card-text">
+            <iframe src="https://amazon.com" frameborder="0"></iframe>
+          </p>
+        </div>
+      </div>
+    </div>
+<% end %>
+</div>

@@ -1,0 +1,27 @@
+<h3>My events</h3>
+
+<div class="row ">
+  <% @user_events.each do |ue| %>
+    <div class="col-xs-12 col-sm-4">
+      <div class="card">
+        <div class="card-body">
+          <%= link_to user_event_path(ue.id) do %>
+            <h4 class="card-title"><%= ue.event.name || 'Title'%></h4>
+          <% end %>
+<!--          <p class="card-text">Text</p>-->
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+  $('.card').on('mouseenter', function () {
+    let $this = $(this);
+    console.log('hovering')
+    // $this.addClass('animated slower heartBeat')
+  })
+  $('.card').on('mouseleave', function () {
+    $('.animated').removeClass('heartBeat')
+  });
+</script>

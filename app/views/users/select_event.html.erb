@@ -1,0 +1,69 @@
+<!-- Modal -->
+<div class="modal fade" id="select_event" tabindex="-1" role="dialog" aria-labelledby="select_event_title" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title">Select Event</h5>
+        <div class="btn-group">
+          <%= button_to 'Join by code', join_by_code_path, class: 'btn' %>
+          <%= button_to 'Create Event', new_event_path, class: 'btn create-event-btn' %>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <table class="table table-hover">
+            <tbody>
+            <% @events.each do |event| %>
+              <tr class="event-row" data-url="<%= set_selected_event_path(id: event.id) %>">
+                <td style="text-align: center;">
+                  <%= link_to event.name, '#' %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div class="join-by-code">
+          <%= form_with url: join_by_code_path, scope: 'user_event' do |f| %>
+            <label class="form-errors red"></label>
+            <div class="form-group">
+              <%= f.label :join_code, class: 'sr-only' %>
+              <%= f.text_field :join_code, class:'form-control', placeholder: 'Join code' %>
+            </div>
+            <div class="right mt1">
+              <%= f.submit 'Submit', class:'btn btn-success join-btn', style: 'color:white;' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+  $('#select_event').modal({backdrop: 'static'});
+  
+  $('.event-row').on('click', function () {
+    window.location = $(this).data('url');
+  })
+
+  $('.join-btn').on('click', function(e){
+      e.preventDefault();
+    let $form = $(this).parents('form');
+    $.post($form.attr('action'), $form.serialize()).done(function(response){
+      console.log(response)
+      if(response.success){
+      } else {
+        $('.form-errors').html(response.message)
+      }
+    })
+  })
+  
+  
+  $('.create-event-btn').on('click', function(e){
+    e.preventDefault();
+    $(this).addClass('animated hinge');
+  })
+</script>

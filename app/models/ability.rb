@@ -6,7 +6,6 @@ class Ability
   def initialize(user_event)
     # Define abilities for the passed in user here. For example:
     #
-    byebug
     #   user ||= User.new # guest user (not logged in)
     if user_event.superuser?
       can :manage, :all

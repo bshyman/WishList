@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-12">
+    <div class="position-relative">
+      <table class="table  ">
+        <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Items</th>
+          <th scope="">Bought Already</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @user_event.event.users.each do |user| %>
+          <tr>
+            <th scope="row"><%= link_to user.email, gifts_for_user_user_event_path(@user_event.id)  %></th>
+            <td scope="row"><%= rand(100) %> gifts</td>
+            <td><%= rand(20) %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

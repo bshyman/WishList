@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  #skip_before_ :google_oauth, :create
   
   def google_oauth
     # Get access tokens from the google server
@@ -14,14 +15,14 @@ class SessionsController < ApplicationController
     session[:user_id] = user.id
     if user.last_event_id.present?
       session[:event_id] = user.last_event_id
-      redirect_to dashboard_user_path(user), notice: 'Logged in!'
+      redirect_to event_users_path(user, event_id: user.last_event_id), notice: 'Logged in!'
     else
       event_ids = UserEvent.where(user_id: user.id).pluck(:event_id).uniq
       if event_ids.size == 1
         event_id = event_ids.first
         session[:event_id] = event_id
         user.update(last_event_id: event_id)
-        return redirect_to user_event_path(event_id),notice: 'logged in.'
+        return redirect_to event_users_path(event_id: event_id),notice: 'logged in.'
       end
       redirect_to select_event_users_path
     end
@@ -33,8 +34,10 @@ class SessionsController < ApplicationController
   
   def destroy
     session[:user_id] = nil
+    session[:event_id]
     @current_ability = nil
     @current_user = nil
+    @current_event = nil
     redirect_to home_landing_path, notice: 'Signed out'
   end
 end

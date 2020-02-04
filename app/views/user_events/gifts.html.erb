@@ -1,5 +1,4 @@
 <%= content_for :page_navigation do %>
-
   <li>
     <%= link_to 'Home', root_path, class: 'nav-link' %>
   </li>
@@ -7,49 +6,58 @@
   /
   </span>
   <li class="nav-link">
-    <%= link_to @user_event.event.name, user_gifts_path(@event, ) %>
+    <%= link_to @user_event.event.name, event_users_path(@user_event.event) %>
   </li>
   <span class="nav-link">
   /
   </span>
   <li class="nav-link">
-    <%= @gifts.take.receiver.first_name   %>
+    <%= @user_event.user.first_name %>
   </li>
 <% end %>
-
-<h4>Gifts for <%= @gifts.take.receiver.first_name %></h4>
-
-
-<table class="table table-hover table-striped  ">
-  <thead>
-  <tr>
-    <th>Name</th>
-    <th>URL</th>
-    <th>Price</th>
-    <th>Purchased</th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @gifts.each do |gift| %>
+<h4>Gifts for <%= @user_event.user.first_name %></h4>
+<% if @gifts.present? %>
+  <table class="table table-hover table-striped  ">
+    <thead>
     <tr>
-      <td>
-        <strong><%= gift.name %></strong>
-      </td>
-      <td>
-        <span class="label label-success"><%= gift.url %></span>
-      </td>
-      <td><%= gift.price %></td>
-      <td>
-        <div class="btn-group btn-group-xs">
-          <a data-toggle="tooltip" class="btn btn-default" data-original-title="Delete">
-            <i class="ti-trash "></i>
-          </a>
-          <a data-toggle="tooltip" class="btn btn-default" data-original-title="Edit">
-            <i class="ti-pencil-alt "></i>
-          </a>
-        </div>
-      </td>
+      <th>Name</th>
+      <th>URL</th>
+      <th>Price</th>
+      <th>Purchased</th>
     </tr>
-  <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+    <% @gifts.each do |gift| %>
+      <tr>
+        <td>
+          <strong><%= gift.name %></strong>
+        </td>
+        <td>
+          <span class="label label-success"><%= gift.url %></span>
+        </td>
+        <td><%= number_to_currency gift.price %></td>
+        <td>
+          <div class="btn-group btn-group-xs">
+            <a data-toggle="tooltip" class="btn btn-default" data-original-title="Delete">
+              <i class="ti-trash "></i>
+            </a>
+            <a data-toggle="tooltip" class="btn btn-default" data-original-title="Edit">
+              <i class="ti-pencil-alt "></i>
+            </a>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  
+  <div class="modal fade" id="gift_modal" tabindex="-1" role="dialog" aria-labelledby="gift_modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <%= render partial: 'gifts/gift', locals: {gift: @gifts.sample} %>
+      </div>
+    </div>
+  </div>
+<% else %>
+  No Gifts
+<% end %>

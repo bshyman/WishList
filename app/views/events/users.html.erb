@@ -1,0 +1,29 @@
+<%= content_for :page_navigation do %>
+  <label for="breadcrumb"><%= link_to current_event.name, event_users_path, class: 'white' %></label>
+<% end %>
+
+<div class="row">
+  <div class="col-12">
+    <div class="position-relative">
+      <table class="table  ">
+        <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Items</th>
+          <th>Bought Already</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @event.users.each do |user| %>
+          <tr>
+            <% ue = UserEvent.find_by(event_id: @event.id, user_id: user.id) %>
+            <th scope="row"><%= link_to user.name || 'NoName', giftee_path(ue) %></th>
+            <td scope="row"><%= @event.gifts.where(giftee_id: ue.id).size %> gifts</td>
+            <td><%= rand(99999) %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

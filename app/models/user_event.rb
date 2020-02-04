@@ -2,7 +2,8 @@ class UserEvent < ApplicationRecord
   belongs_to :user, dependent: :destroy
   belongs_to :event, dependent: :destroy
   belongs_to :permission
-  has_many :gifts
+  attr_accessor :join_code
+  validates_presence_of :user_id, :event_id, :permission_id
   
   def superuser?
     permission == Permission::SUPERUSER

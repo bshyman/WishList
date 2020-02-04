@@ -4,7 +4,7 @@
   <%= render partial: '_user_account/avatar_upload' %>
   <h2 class="m-0 mb-2"><%= current_user.first_name + ' ' + current_user.last_name  %></h2>
   <div class="badge badge-light">
-    PRO ACCOUNT
+    <%= current_user_event.permission.name %>
   </div>
   <ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
     <li class="nav-item">
